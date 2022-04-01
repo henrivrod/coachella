@@ -15,7 +15,7 @@ Read about it online.
 """
 
 import os
-from sqlalchemy import *
+from flask.ext.sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response
 
