@@ -206,9 +206,9 @@ def stages():
   cursor.close()
 
   cursor = g.conn.execute("SELECT artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
-  friday = [[],[],[],[],[],[]];
-  saturday = [[],[],[],[],[],[]];
-  sunday = [[],[],[],[],[],[]];
+  friday = [[],[],[],[],[],[],[]];
+  saturday = [[],[],[],[],[],[],[]];
+  sunday = [[],[],[],[],[],[],[]];
   for result in cursor:
     if (result.set_day=="Friday"):
       friday[result.stage_id-1].append(result)
