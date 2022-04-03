@@ -18,14 +18,16 @@
         </div>
     </div>
         {% for n in data %}
-            <div class="col-md-4">
-                {{n.ticket_type}}
-            </div>
-            <div class="col-md-4">
-                {{n.purchaser_name}}
-            </div>
-            <div class="col-md-4">
-                {{n.purchaser_age}}
+            <div class="row">
+                <div class="col-md-4">
+                    {{n.ticket_type}}
+                </div>
+                <div class="col-md-4">
+                    {{n.purchaser_name}}
+                </div>
+                <div class="col-md-4">
+                    {{n.purchaser_age}}
+                </div>
             </div>
         {% endfor %}
 </div>
