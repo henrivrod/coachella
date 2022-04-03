@@ -211,11 +211,11 @@ def stages():
   sunday = [[],[],[],[],[],[]];
   for result in cursor:
     if (result.set_day=="Friday"):
-      friday[result.stage_id].append(result)
+      friday[result.stage_id-1].append(result)
     if (result.set_day=="Saturday"):
-      saturday[result.stage_id].append(result)
+      saturday[result.stage_id-1].append(result)
     if (result.set_day=="Sunday"):
-      sunday[result.stage_id].append(result)
+      sunday[result.stage_id-1].append(result)
   cursor.close()
 
   context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
