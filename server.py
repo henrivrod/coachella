@@ -199,7 +199,7 @@ def tickets():
   #
   # example of a database query
   #
-  cursor = g.conn.execute("SELECT ticket_id, festival_id, purchaser_name, purchaser_age, ticket_type FROM ticket ORDER BY ticket_type")
+  cursor = g.conn.execute("SELECT ticket_type, purchaser_name, purchaser_age FROM ticket ORDER BY ticket_type")
   tickets = []
   for result in cursor:
     tickets.append(result)  # can also be accessed using result[0]
@@ -238,7 +238,7 @@ def tickets():
   # render_template looks in the templates/ folder for files.
   # for example, the below file reads template/index.html
   #
-  return render_template("index.html", **context)
+  return render_template("tickets.html", **context)
 
 #
 # This is an example of a different path.  You can see it at:
