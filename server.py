@@ -266,12 +266,59 @@ def add():
   g.conn.execute('INSERT INTO test VALUES (NULL, ?)', name)
   return redirect('/')
 
-
 @app.route('/login')
 def login():
     abort(401)
     this_is_never_executed()
 
+@app.route('/tickets')
+def tickets():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT ticket_type, purchaser_name, purchaser_age FROM ticket ORDER BY ticket_type")
+  tickets = []
+  for result in cursor:
+    tickets.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(data = tickets)
+
+  return render_template("tickets.html", **context)
+
+@app.route('/stages')
+def stages():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT stage_id, stage_name FROM stage")
+  stages = []
+  for result in cursor:
+    stages.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
+  songs = []
+  for result in cursor:
+    songs.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
+  friday = [[],[],[],[],[],[],[]];
+  saturday = [[],[],[],[],[],[],[]];
+  sunday = [[],[],[],[],[],[],[]];
+  for result in cursor:
+    if (result.set_day=="Friday"):
+      friday[result.stage_id-1].append(result)
+    if (result.set_day=="Saturday"):
+      saturday[result.stage_id-1].append(result)
+    if (result.set_day=="Sunday"):
+      sunday[result.stage_id-1].append(result)
+  cursor.close()
+
+  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
+
+  return render_template("stages.html", **context)
 
 if __name__ == "__main__":
   import click
