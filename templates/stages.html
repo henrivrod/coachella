@@ -9,23 +9,37 @@
     {% for s in stages %}
         <div class="row">
         {{ s.stage_name }}
+        </div>
             {% set id = s.stage_id %}
+            <div class="row">
+                <div class="col-md-3">
+                    Artist Name
+                </div>
+                <div class="col-md-3">
+                    Start Time
+                </div>
+                <div class="col-md-3">
+                    End Time
+                </div>
+                <div class="col-md-3">
+                    Songs
+                </div>
+            </div>
             {% for a in friday[id] %}
                 <div class="row">
-                    {{ a }}
+                    <div class="col-md-3">
+                        {{ a.artist_name }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ a.set_start_time.strftime('%H:%M') }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ a.set_end_time.strftime('%H:%M') }}
+                    </div>
+                    <div class="col-md-3">
+                    </div>
                 </div>
             {% endfor %}
-            {% for a in saturday[id] %}
-                <div class="row">
-                    {{ a }}
-                </div>
-            {% endfor %}
-            {% for a in sunday[id] %}
-                <div class="row">
-                    {{ a }}
-                </div>
-            {% endfor %}
-        </div>
     {% endfor %}
 
 </div>
