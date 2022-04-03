@@ -3,7 +3,7 @@
 
 <style>
     .stage{
-        font-size: large;
+        font-size: x-large;
         font-weight: bold;
     }
     .day{
@@ -13,10 +13,9 @@
 
 <body>
 <h1>Stage Calendars</h1>
-
 <div class="container">
     {% for s in stages %}
-        <div class="row stage">
+        <div class="stage">
         {{ s.stage_name }}
         </div>
             {% set id = s.stage_id %}
