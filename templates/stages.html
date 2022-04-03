@@ -40,6 +40,64 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="row">
+                <div class="col-md-3">
+                    Artist Name
+                </div>
+                <div class="col-md-3">
+                    Start Time
+                </div>
+                <div class="col-md-3">
+                    End Time
+                </div>
+                <div class="col-md-3">
+                    Songs
+                </div>
+            </div>
+            {% for a in saturday[id] %}
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ a.artist_name }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ a.set_start_time.strftime('%H:%M') }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ a.set_end_time.strftime('%H:%M') }}
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-md-3">
+                    Artist Name
+                </div>
+                <div class="col-md-3">
+                    Start Time
+                </div>
+                <div class="col-md-3">
+                    End Time
+                </div>
+                <div class="col-md-3">
+                    Songs
+                </div>
+            </div>
+            {% for a in sunday[id] %}
+                <div class="row">
+                    <div class="col-md-3">
+                        {{ a.artist_name }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ a.set_start_time.strftime('%H:%M') }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ a.set_end_time.strftime('%H:%M') }}
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            {% endfor %}
     {% endfor %}
 
 </div>
