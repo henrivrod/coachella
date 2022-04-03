@@ -6,16 +6,27 @@
 <h1>Tickets Sold</h1>
 
 <div class="container">
-    {% for n in stages %}
+    {% for s in stages %}
         <div class="row">
-        {{ n }}
+        {{ s.stage_name }}
+            {% for a in friday[{{ s.stage_id }}] %}
+                <div class="row">
+                    {{ a }}
+                </div>
+            {% endfor %}
+            {% for a in saturday[{{ s.stage_id }}] %}
+                <div class="row">
+                    {{ a }}
+                </div>
+            {% endfor %}
+            {% for a in sunday[{{ s.stage_id }}] %}
+                <div class="row">
+                    {{ a }}
+                </div>
+            {% endfor %}
         </div>
     {% endfor %}
-    {% for n in friday[0] %}
-        <div class="row">
-            {{ n }}
-        </div>
-    {% endfor %}
+
 </div>
 
 </body>

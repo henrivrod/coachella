@@ -199,7 +199,7 @@ def stages():
   # DEBUG: this is debugging code to see what request looks like
   print(request.args)
 
-  cursor = g.conn.execute("SELECT stage_name FROM stage")
+  cursor = g.conn.execute("SELECT stage_id, stage_name FROM stage")
   stages = []
   for result in cursor:
     stages.append(result)  # can also be accessed using result[0]
