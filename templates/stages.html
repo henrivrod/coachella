@@ -37,6 +37,7 @@
                 </div>
             </div>
             {% for a in friday[id] %}
+                {% set aid = a.artist_id %}
                 <div class="row">
                     <div class="col-md-3">
                         {{ a.artist_name }}
@@ -48,6 +49,11 @@
                         {{ a.set_end_time.strftime('%H:%M') }}
                     </div>
                     <div class="col-md-3">
+                        {% for so in songs %}
+                            {% if so.artist_id is aid  %}
+                                {{so.song_name}}
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             {% endfor %}
