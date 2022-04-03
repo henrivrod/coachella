@@ -199,7 +199,7 @@ def tickets():
   #
   # example of a database query
   #
-  cursor = g.conn.execute("SELECT ticket_id, festival_id, purchaser_name, purchaser_age, ticket_type FROM test GROUP BY ticket_type")
+  cursor = g.conn.execute("SELECT ticket_id, festival_id, purchaser_name, purchaser_age, ticket_type FROM ticket GROUP BY ticket_type")
   tickets = []
   for result in cursor:
     tickets.append(result)  # can also be accessed using result[0]
