@@ -205,14 +205,20 @@ def stages():
     stages.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT artist_name, set_start_time, set_end_time, stage_id FROM artist WHERE set_day='Friday' ORDER BY set_start_time")
-  friday1 = []
+  cursor = g.conn.execute("SELECT artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
+  friday = [[],[],[],[],[],[]];
+  saturday = [[],[],[],[],[],[]];
+  sunday = [[],[],[],[],[],[]];
   for result in cursor:
-    if (result.stage_id==1):
-      friday1.append(result)  # can also be accessed using result[0]
+    if (result.set_day=="Friday"):
+      friday[result.stage_id].append(result)
+    if (result.set_day=="Saturday"):
+      saturday[result.stage_id].append(result)
+    if (result.set_day=="Sunday"):
+      sunday[result.stage_id].append(result)
   cursor.close()
 
-  context = dict(stages = stages, friday1=friday1)
+  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
 
   return render_template("stages.html", **context)
 
