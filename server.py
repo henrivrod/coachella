@@ -214,7 +214,7 @@ def stages():
 
   context = dict(stages = stages, friday1=friday1)
 
-  return render_template("tickets.html", **context)
+  return render_template("stages.html", **context)
 
 if __name__ == "__main__":
   import click
