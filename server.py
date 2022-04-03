@@ -147,6 +147,9 @@ def index():
   #
   context = dict(data = names)
 
+  
+  
+
 
   #
   # render_template looks in the templates/ folder for files.
@@ -166,6 +169,95 @@ def index():
 def another():
   return render_template("another.html")
 
+@app.route('/tickets')
+def tickets():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT ticket_type, purchaser_name, purchaser_age FROM ticket ORDER BY ticket_type")
+  tickets = []
+  for result in cursor:
+    tickets.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(data = tickets)
+
+  return render_template("tickets.html", **context)
+
+@app.route('/stages')
+def stages():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT stage_id, stage_name FROM stage")
+  stages = []
+  for result in cursor:
+    stages.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
+  songs = []
+  for result in cursor:
+    songs.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
+  friday = [[],[],[],[],[],[],[]];
+  saturday = [[],[],[],[],[],[],[]];
+  sunday = [[],[],[],[],[],[],[]];
+  for result in cursor:
+    if (result.set_day=="Friday"):
+      friday[result.stage_id-1].append(result)
+    if (result.set_day=="Saturday"):
+      saturday[result.stage_id-1].append(result)
+    if (result.set_day=="Sunday"):
+      sunday[result.stage_id-1].append(result)
+  cursor.close()
+
+  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
+
+  return render_template("stages.html", **context)
+
+
+@app.route('/merch')
+def merch():
+  return render_template("merch.html")
+
+
+@app.route('/food')
+def food():
+  print(request.args)
+  concessiondata = {} 
+
+  cursor = g.conn.execute("SELECT area_name, area_id FROM concession_area")
+  area_names = []
+  for result in cursor:
+    area_names.append(result)
+    """
+    if result['area_id'] in concessiondata:
+      concessiondata[result['area_id']].append(result['area_name'])  # can also be accessed using result[0]
+    else:
+      concessiondata[result['area_id']] = [result['area_name']]
+      """
+  cursor.close()
+
+  
+  cursor = g.conn.execute("SELECT s.stage_name, c.area_id FROM stage s, concession_area c WHERE s.stage_id = c.stage_id")
+  stage_names = []
+  for result in cursor:
+    stage_names.append(result)
+    #concessiondata[result['area_id']].append(result['stage_name'])  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT s.stand_name, s.area_id FROM stand s order by s.area_id")
+  stand_names= []
+  for result in cursor:
+    stand_names.append(result)  # can also be accessed using result[0]
+  cursor.close()
+  
+  context = dict(area_name = area_names, stage_name = stage_names, stand_name=stand_names)
+
+  return render_template("food.html", **context)
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
