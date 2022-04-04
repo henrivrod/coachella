@@ -52,6 +52,9 @@
                         {{ a.set_end_time.strftime('%H:%M') }}
                     </div>
                     <div class="col-md-3">
+                        {% for so in songs[aid] %}
+                            {{so.song_name}}\n
+                        {% endfor %}
                     </div>
                 </div>
             {% endfor %}

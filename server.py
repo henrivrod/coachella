@@ -195,10 +195,12 @@ def stages():
     stages.append(result)  # can also be accessed using result[0]
   cursor.close()
 
+  cursor = g.conn.execute("SELECT COUNT(DISTINCT artist_id) FROM artist")
+  length = cursor[0]
   cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
-  songs = []
+  songs = [[]]*length
   for result in cursor:
-    songs.append(result)  # can also be accessed using result[0]
+    songs[result.artist_id].append(result)  # can also be accessed using result[0]
   cursor.close()
 
   cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
