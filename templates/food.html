@@ -1,3 +1,7 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
 <html>
   <style>
     body{ 
@@ -19,7 +23,7 @@
         <b>List of stands in {{area.area_name}}</b>
         {% for stand in stand_name %}
         {% if stand.area_id == area.area_id %}
-        <div>{{stand.stand_name}}</div>
+        <div><a href=stand/${str(stand.stand_id)}>{{stand.stand_name}}</a></div>
         {% endif %}
         {% endfor %}
         {% endfor %}
@@ -28,3 +32,5 @@
 
 
 </html>
+
+{% endblock %}

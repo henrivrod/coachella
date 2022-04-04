@@ -221,13 +221,49 @@ def stages():
 
 @app.route('/merch')
 def merch():
-  return render_template("merch.html")
+  print(request.args)
+  cursor = g.conn.execute("SELECT m.tent_id, m.number_of_workers, s.stage_name FROM merch_tent m, stage s where m.stage_id = s.stage_id")
+  tents = []
+  for result in cursor:
+    tents.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  print(request.args)
+  cursor = g.conn.execute("SELECT item_id, tent_id, item_name, item_type, number_remaining, price FROM merch_item order by tent_id")
+  items = []
+  for result in cursor:
+    items.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(tent_info = tents, item_info = items)
+
+  return render_template("merch.html", **context)
+
+@app.route('/stand/<id>')
+def stand(id=0):
+  print(request.args)
+  cursor = g.conn.execute("SELECT s.stand_name, c.area_name FROM stand s, concession_area c where c.area_id = s.area_id AND s.stand_id="+str(id))
+  stand = []
+  for result in cursor:
+    stand.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT dish_name, price, item_type FROM dish where stand_id="+str(id))
+  dish = []
+  for result in cursor:
+    dish.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(stand_info = stand, dishes = dish)
+
+  return render_template("stand.html", **context)
+
 
 
 @app.route('/food')
 def food():
   print(request.args)
-  concessiondata = {} 
+   
 
   cursor = g.conn.execute("SELECT area_name, area_id FROM concession_area")
   area_names = []
@@ -249,7 +285,7 @@ def food():
     #concessiondata[result['area_id']].append(result['stage_name'])  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT s.stand_name, s.area_id FROM stand s order by s.area_id")
+  cursor = g.conn.execute("SELECT s.stand_name, s.area_id, s.stand_id FROM stand s order by s.area_id")
   stand_names= []
   for result in cursor:
     stand_names.append(result)  # can also be accessed using result[0]
@@ -260,65 +296,18 @@ def food():
   return render_template("food.html", **context)
 
 # Example of adding new data to the database
-@app.route('/add', methods=['POST'])
+@app.route('/add_data', methods=['POST'])
 def add():
   name = request.form['name']
   g.conn.execute('INSERT INTO test VALUES (NULL, ?)', name)
   return redirect('/')
+
 
 @app.route('/login')
 def login():
     abort(401)
     this_is_never_executed()
 
-@app.route('/tickets')
-def tickets():
-  # DEBUG: this is debugging code to see what request looks like
-  print(request.args)
-
-  cursor = g.conn.execute("SELECT ticket_type, purchaser_name, purchaser_age FROM ticket ORDER BY ticket_type")
-  tickets = []
-  for result in cursor:
-    tickets.append(result)  # can also be accessed using result[0]
-  cursor.close()
-
-  context = dict(data = tickets)
-
-  return render_template("tickets.html", **context)
-
-@app.route('/stages')
-def stages():
-  # DEBUG: this is debugging code to see what request looks like
-  print(request.args)
-
-  cursor = g.conn.execute("SELECT stage_id, stage_name FROM stage")
-  stages = []
-  for result in cursor:
-    stages.append(result)  # can also be accessed using result[0]
-  cursor.close()
-
-  cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
-  songs = []
-  for result in cursor:
-    songs.append(result)  # can also be accessed using result[0]
-  cursor.close()
-
-  cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
-  friday = [[],[],[],[],[],[],[]];
-  saturday = [[],[],[],[],[],[],[]];
-  sunday = [[],[],[],[],[],[],[]];
-  for result in cursor:
-    if (result.set_day=="Friday"):
-      friday[result.stage_id-1].append(result)
-    if (result.set_day=="Saturday"):
-      saturday[result.stage_id-1].append(result)
-    if (result.set_day=="Sunday"):
-      sunday[result.stage_id-1].append(result)
-  cursor.close()
-
-  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
-
-  return render_template("stages.html", **context)
 
 if __name__ == "__main__":
   import click

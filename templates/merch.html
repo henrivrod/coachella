@@ -1,1 +1,52 @@
-hello, I am another file!
+{% extends "layout.html" %}
+
+{% block content %}
+
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+    {% for tent in tent_info %}
+    <h1>MERCH TENT {{tent.tent_id}}</h1>
+    {% if tent.tent_id == 1 %}
+    <p>Closest to: {{tent.stage_name}}</p>
+    <p>Number of Workers: {{tent.number_of_workers}}</p>
+    {% endif %}
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-3'><b>Item Name</b></div>
+            <div class='col-md-3'><b>Item Type</b></div>
+            <div class='col-md-3'><b>Number Remaining</b></div>
+            <div class='col-md-3'><b>Price</b></div>
+        </div>
+        {% for item in item_info %}
+        <div class="row">
+            <div class="col-md-3">
+                {{item.item_name}}
+            </div>
+            <div class="col-md-3">
+                {{item.item_type}}
+            </div>
+            <div class="col-md-3">
+                {{item.number_remaining}}
+            </div>
+            <div class="col-md-3">
+                {{item.price}}
+            </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        
+    </div>
+</body>
+
+
+</html>
+
+{% endblock %}

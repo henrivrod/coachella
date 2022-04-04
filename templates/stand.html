@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<html>
+    <head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+    {% for stand in stand_info %}
+    <h1>Stand Name: {{stand.stand_name}}</h1>
+    <p>Located in: {{stand.area_name}}</p>
+    <b>List of Dishes Sold at {{stand.stand_name}}</b>
+    {% endfor %}
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-4'><b>Dish Name</b></div>
+            <div class='col-md-4'><b>Price</b></div>
+            <div class='col-md-4'><b>Item Type</b></div>
+        </div>
+        {% for dish in dishes %}
+        <div class="row">
+            <div class="col-md-4">
+                {{dish.dish_name}}
+            </div>
+            <div class="col-md-4">
+                {{dish.price}}
+            </div>
+            <div class="col-md-4">
+                {{dish.item_type}}
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+
+</body>
+
+
+</html>
+
+{% endblock %}
