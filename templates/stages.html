@@ -21,7 +21,7 @@
         <div class="stage">
         {{ s.stage_name }}
         </div>
-            {% set id = s.stage_id %}
+            {% set id = s.stage_id-1 %}
             <div class="row day">
                 Friday
             </div>
@@ -52,11 +52,6 @@
                         {{ a.set_end_time.strftime('%H:%M') }}
                     </div>
                     <div class="col-md-3">
-                        {% for so in songs %}
-                            {% if so.artist_id == aid  %}
-                                {{so.song_name}}
-                            {% endif %}
-                        {% endfor %}
                     </div>
                 </div>
             {% endfor %}
