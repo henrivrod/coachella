@@ -255,7 +255,7 @@ def stand(id=0):
 @app.route('/artist/<id>')
 def artist(id=0):
   print(request.args)
-  query = "SELECT artist_name FROM artist where artist_id=:i"
+  query = "SELECT artist_name FROM artist where artist_id=:i ;"
   cursor = g.conn.execute(query, i = id)
   artist = []
   for result in cursor:
