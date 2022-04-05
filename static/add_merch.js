@@ -17,6 +17,8 @@ $(document).ready(function () {
         }
     });
 
+    
+
     $("#additem").click(function () {
         if (j < 1) {
             j += 1;
@@ -26,7 +28,7 @@ $(document).ready(function () {
             //$("#item_tent_id").append("<label for='item_tentidentry' id='item_tentid_warning'></label>");
             $("#item_name").append("<div><input type='text' name='item_nameentry' placeholder = 'item name'></div>");
             //$("#item_name").append("<label for='item_nameentry' id='itemname_warning'></label>");
-            $("#item_type").append("<div><input type='text' name='item_typeentry' placeholder = 'item type'></div>");
+            $("#item_type").append("<div id ='dropdownmerch'><label for='merchitemtype'>Choose Type:</label><select name='merchitemtype'><option value='shirt'>Shirt</option><option value='hoodie'>Hoodie</option><option value='sweatpants'>Sweatpants</option><option value='hat'>Hat</option><option value='other'>Other</option></select></div>");
             //$("#item_type").append("<label for='item_typeentry' id='itemtype_warning'></label>");
             $("#num_remaining").append("<div><input type='text' name='num_remainingentry' placeholder = 'Number remaining'></div>");
             //$("#num_remaining").append("<label for='num_remainingentry' id='numremainingwarning'></label>");
