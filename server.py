@@ -326,8 +326,6 @@ def add_item():
   g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', itemid, tentid, itemname, itemtype, numrem, price)
   return redirect('/')
 
-<<<<<<< HEAD
-=======
 @app.route("/add_ticket", methods=['POST'])
 def add_ticket():
   cursor = g.conn.execute("SELECT ticket_id FROM ticket")
