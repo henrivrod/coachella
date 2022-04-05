@@ -331,7 +331,7 @@ def add_food():
   return render_template("add_food.html")
 
 @app.route("/add_ticket")
-def add_ticket():
+def add_ticket_page():
   return render_template("add_ticket.html")
 
 @app.route("/add_tent", methods=['POST'])
