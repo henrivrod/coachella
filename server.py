@@ -195,22 +195,13 @@ def stages():
     stages.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT COUNT(DISTINCT artist_id) FROM artist")
-  for result in cursor:
-    length = result
-  cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
-  songs = []
-  for i in range(length):
-    songs.append([])
-  for result in cursor:
-    songs[result.artist_id].append(result)  # can also be accessed using result[0]
-  cursor.close()
-
   cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
+  length = 0
   friday = [[],[],[],[],[],[],[]];
   saturday = [[],[],[],[],[],[],[]];
   sunday = [[],[],[],[],[],[],[]];
   for result in cursor:
+    length=length+1
     if (result.set_day=="Friday"):
       friday[result.stage_id-1].append(result)
     if (result.set_day=="Saturday"):
@@ -219,10 +210,36 @@ def stages():
       sunday[result.stage_id-1].append(result)
   cursor.close()
 
+  cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
+  songs = []
+  for i in range(length):
+    songs.append([])
+  for result in cursor:
+    songs[result.artist_id].append(result)  # can also be accessed using result[0]
+  cursor.close()
+
   context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
 
   return render_template("stages.html", **context)
 
+@app.route('/artist/<id>')
+def artist(id=0):
+  print(request.args)
+  cursor = g.conn.execute("SELECT artist_name FROM artist where artist_id="+str(id))
+  artist = []
+  for result in cursor:
+    artist.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT song_name,order_in_set,song_length,special_guest_name FROM song where artist_id="+str(id))
+  songs = []
+  for result in cursor:
+    songs.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(artist=artist, songs=songs)
+
+  return render_template("artist.html", **context)
 
 @app.route('/merch')
 def merch():

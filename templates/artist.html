@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <html>
+    <style>
+        body{
+            font-size: 15pt;
+            font-family: arial;
+        }
+    </style>
+
+
+    <body>
+    <h1>{{ artist[0].artist_name }}</h1>
+    <h3>Songs:</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                Order in set
+            </div>
+            <div class="col-md-3">
+                Song name
+            </div>
+            <div class="col-md-3">
+                Song length
+            </div>
+            <div class="col-md-3">
+                Special Guests
+            </div>
+        </div>
+    {% for s in songs %}
+        <div class="row">
+            <div class="col-md-3">
+                {{s.order_in_set}}
+            </div>
+            <div class="col-md-3">
+                {{s.song_name}}
+            </div>
+            <div class="col-md-3">
+                {{s.song_length}} minutes
+            </div>
+            <div class="col-md-3">
+                {{s.special_guest_name}}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    </body>
+
+
+    </html>
+
+{% endblock %}
