@@ -300,12 +300,43 @@ def food():
   return render_template("food.html", **context)
 
 # Example of adding new data to the database
-@app.route('/add_data', methods=['POST'])
-def add():
-  name = request.form['name']
-  g.conn.execute('INSERT INTO test VALUES (NULL, ?)', name)
+@app.route('/add_data')
+def add_data():
+  return render_template("add_data.html")
+
+@app.route("/add_merch")
+def add_merch():
+  return render_template("add_merch.html")
+
+@app.route("/add_tent", methods=['POST'])
+def add_tent():
+  
+  tentid = request.form['tent_identry']
+  stageid = request.form['stage_identry']
+  numworkers = request.form['num_workersentry']
+  g.conn.execute('INSERT INTO merch_tent (tent_id, stage_id, number_of_workers) VALUES (%s, %s, %s)', tentid, stageid, numworkers)
   return redirect('/')
 
+@app.route("/add_item", methods=['POST'])
+def add_item():
+  
+  itemid = request.form['item_identry']
+  tentid = request.form['item_tentidentry']
+  itemname = request.form['item_nameentry']
+  itemtype = request.form['item_typeentry']
+  numrem = request.form['num_remainingentry']
+  price = request.form['price_entry']
+  g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', itemid, tentid, itemname, itemtype, numrem, price)
+  return redirect('/')
+
+"""@app.route("/add_item")
+def add_item():
+  tentid = request.form['tent_identry']
+  stageid = request.form['stage_identry']
+  numworkers = request.form['num_workersentry']
+  g.conn.execute('INSERT INTO merch_tent VALUES (?, ?, ?)', tentid, stageid, numworkers)
+  return redirect('/')
+"""
 
 @app.route('/login')
 def login():
