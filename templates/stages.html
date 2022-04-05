@@ -26,36 +26,27 @@
                 Friday
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     Artist Name
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     Start Time
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     End Time
-                </div>
-                <div class="col-md-3">
-                    Songs
                 </div>
             </div>
             {% for a in friday[id] %}
                 {% set aid = a.artist_id %}
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         {{ a.set_start_time.strftime('%H:%M') }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         {{ a.set_end_time.strftime('%H:%M') }}
-                    </div>
-                    <div class="col-md-3">
-                        {% for so in songs[aid] %}
-                            {{so.song_name}}
-                            <br>
-                        {% endfor %}
                     </div>
                 </div>
             {% endfor %}
@@ -63,31 +54,26 @@
                 Saturday
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     Artist Name
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     Start Time
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     End Time
-                </div>
-                <div class="col-md-3">
-                    Songs
                 </div>
             </div>
             {% for a in saturday[id] %}
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         {{ a.set_start_time.strftime('%H:%M') }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         {{ a.set_end_time.strftime('%H:%M') }}
-                    </div>
-                    <div class="col-md-3">
                     </div>
                 </div>
             {% endfor %}
@@ -95,31 +81,26 @@
                 Sunday
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     Artist Name
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     Start Time
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     End Time
-                </div>
-                <div class="col-md-3">
-                    Songs
                 </div>
             </div>
             {% for a in sunday[id] %}
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         {{ a.set_start_time.strftime('%H:%M') }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         {{ a.set_end_time.strftime('%H:%M') }}
-                    </div>
-                    <div class="col-md-3">
                     </div>
                 </div>
             {% endfor %}

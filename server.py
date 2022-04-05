@@ -210,15 +210,7 @@ def stages():
       sunday[result.stage_id-1].append(result)
   cursor.close()
 
-  cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
-  songs = []
-  for i in range(length):
-    songs.append([])
-  for result in cursor:
-    songs[result.artist_id].append(result)  # can also be accessed using result[0]
-  cursor.close()
-
-  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
+  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
 
   return render_template("stages.html", **context)
 
