@@ -196,7 +196,8 @@ def stages():
   cursor.close()
 
   cursor = g.conn.execute("SELECT COUNT(DISTINCT artist_id) FROM artist")
-  length = cursor[0]
+  for result in cursor:
+    length = result
   cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
   songs = [[]]*length
   for result in cursor:
