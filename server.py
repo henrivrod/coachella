@@ -14,6 +14,7 @@ import os
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response
+import psycopg2
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -188,17 +189,6 @@ def stages():
     stages.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT COUNT(DISTINCT artist_id) FROM artist")
-  for result in cursor:
-    length = result
-  cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
-  songs = []
-  for i in range(length):
-    songs.append([])
-  for result in cursor:
-    songs[result.artist_id].append(result)  # can also be accessed using result[0]
-  cursor.close()
-
   cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
   friday = [[],[],[],[],[],[],[]];
   saturday = [[],[],[],[],[],[],[]];
@@ -213,7 +203,10 @@ def stages():
   cursor.close()
 
   context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
+<<<<<<< HEAD
 
+=======
+>>>>>>> a3556ec8a697376178756746bcf6a172d8905a58
   return render_template("stages.html", **context)
 
 
@@ -256,7 +249,24 @@ def stand(id=0):
 
   return render_template("stand.html", **context)
 
+@app.route('/artist/<id>')
+def artist(id=0):
+  print(request.args)
+  cursor = g.conn.execute("SELECT artist_name FROM artist where artist_id=%s", (id,))
+  artist = []
+  for result in cursor:
+    artist.append(result)  # can also be accessed using result[0]
+  cursor.close()
 
+  cursor = g.conn.execute("SELECT * FROM song where artist_id=%s", (id,))
+  songs = []
+  for result in cursor:
+    songs.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(artist=artist, songs=songs)
+
+  return render_template("artist.html", **context)
 
 @app.route('/food')
 def food():
@@ -374,7 +384,7 @@ def add_ticket():
   name = request.form['name']
   age = request.form['age']
   type = request.form['type']
-  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', ticketCount+1, name, age, type)
+  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', (ticketCount+1, name, age, type,))
   return redirect('/')
 
 """@app.route("/add_item")
