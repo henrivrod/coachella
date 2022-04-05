@@ -334,6 +334,10 @@ def add_food():
 def add_merch():
   return render_template("add_ticket.html")
 
+@app.route("/add_ticket")
+def add_merch():
+  return render_template("add_ticket.html")
+
 @app.route("/add_tent", methods=['POST'])
 def add_tent():
   
