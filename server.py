@@ -309,6 +309,10 @@ def add_data():
 def add_merch():
   return render_template("add_merch.html")
 
+@app.route("/add_food")
+def add_food():
+  return render_template("add_food.html")
+
 @app.route("/add_tent", methods=['POST'])
 def add_tent():
   
@@ -338,6 +342,36 @@ def add_item():
   g.conn.execute('INSERT INTO merch_tent VALUES (?, ?, ?)', tentid, stageid, numworkers)
   return redirect('/')
 """
+
+@app.route("/add_concession", methods=['POST'])
+def add_concession():
+  
+  areaid = request.form['area_identry']
+  stageid = request.form['con_stage_identry']
+  areaname = request.form['area_nameentry']
+  numstand = request.form['num_standsentry']
+  g.conn.execute('INSERT INTO concession_area (area_id, stage_id, area_name, number_of_stands) VALUES (%s, %s, %s, %s)', areaid, stageid, areaname, numstand)
+  return redirect('/')
+
+@app.route("/add_dish", methods=['POST'])
+def add_dish():
+  
+  dishid = request.form['dish_identry']
+  standid = request.form['dish_stand_identry']
+  dishname = request.form['dish_nameentry']
+  dishprice = request.form['dish_priceentry']
+  dishitemtype = request.form['dish_item_typeentry']
+  g.conn.execute('INSERT INTO merch_item (dish_id, stand_id, dish_name, price, item_type) VALUES (%s, %s, %s, %s, %s)', dishid, standid, dishname, dishprice, dishitemtype)
+  return redirect('/')
+
+@app.route("/add_stand", methods=['POST'])
+def add_stand():
+  
+  standid = request.form['stand_identry']
+  areaid = request.form['stand_areaidentry']
+  standname = request.form['stand_nameentry']
+  g.conn.execute('INSERT INTO stand (stand_id, area_id, stand_name) VALUES (%s, %s, %s)', standid, areaid, standname)
+  return redirect('/')
 
 @app.route('/login')
 def login():

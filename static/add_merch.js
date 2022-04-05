@@ -12,6 +12,8 @@ $(document).ready(function () {
             //$("#num_workers").append("<label for='num_workersentry' id='numworkerswarning'></label>");
             $("#tentbutton").append("<input type='submit' value='Submit'>");
             $("#addbuttontent").empty();
+            $("#itemhead").empty();
+            $("#addbuttonitem").empty();
         }
     });
 
@@ -32,6 +34,8 @@ $(document).ready(function () {
             //$("#price").append("<label for='price_entry' id='price_warning'></label>");
             $("#itembutton").append("<input type='submit' value='Submit'>");
             $("#addbuttonitem").empty();
+            $("#tenthead").empty();
+            $("#addbuttontent").empty();
         }
     });
 

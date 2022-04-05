@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
 <html>
 <head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
-
 <style>
     .stage{
         font-size: x-large;
@@ -13,7 +13,6 @@
         font-weight: bold;
     }
 </style>
-
 <body>
 <h1>Stage Calendars</h1>
 <div class="container">
@@ -21,7 +20,7 @@
         <div class="stage">
         {{ s.stage_name }}
         </div>
-            {% set id = s.stage_id-1 %}
+            {% set id = s.stage_id %}
             <div class="row day">
                 Friday
             </div>
@@ -40,7 +39,6 @@
                 </div>
             </div>
             {% for a in friday[id] %}
-                {% set aid = a.artist_id %}
                 <div class="row">
                     <div class="col-md-3">
                         {{ a.artist_name }}
@@ -52,9 +50,6 @@
                         {{ a.set_end_time.strftime('%H:%M') }}
                     </div>
                     <div class="col-md-3">
-                        {% for so in songs[aid] %}
-                            {{so.song_name}}\n
-                        {% endfor %}
                     </div>
                 </div>
             {% endfor %}
@@ -126,10 +121,8 @@
     {% endfor %}
 
 </div>
-
 </body>
-
-
 </html>
+
 
 {% endblock %}

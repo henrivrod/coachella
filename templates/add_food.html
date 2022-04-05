@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script type="text/javascript" src="{{ url_for('static', filename = 'add_food.js') }}"></script>
+
+<html>
+    <head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+    <div id = "conhead"><h1>Add Concession Area Entry</h1></div>
+    <form method = "POST" action = "/add_concession">
+    <div class = 'row'>
+        <div class = 'col-md-3' id = "area_id">
+        </div>
+        <div class = 'col-md-3' id = "con_stage_id">
+        </div>
+        <div class = 'col-md-3' id = "area_name">
+        </div>
+        <div class = 'col-md-3' id = "number_of_stands">
+        </div>
+        <div id='concessionbutton'></div>
+    </div>
+    </form>
+    <div  id = "addbuttonconcession"><button id="addconcession">Add Concession Area Entry</button></div>
+    <div id ="standhead"><h1>Add Stand Entry</h1></div>
+    <form method = "POST" action = "/add_stand"></form>
+    <div class = 'row'>
+        <div class = 'col-md-4' id = "stand_id">
+        </div>
+        <div class = 'col-md-4' id = "stand_area_id">
+        </div>
+        <div class = 'col-md-4' id = "stand_name">
+        </div>
+        <div id = "standbutton"></div>
+    </div>
+    </form>
+    <div id = "addbuttonstand"><button id="addstand">Add Stand Entry</button></div>
+    <div id="dishhead"><h1>Add Dish Entry</h1></div>
+    <form method = "POST" action = "/add_dish"></form>
+    <div class = 'row'>
+        <div class = 'col-md-2' id = "dish_id">
+        </div>
+        <div class = 'col-md-2' id = "dish_stand_id">
+        </div>
+        <div class = 'col-md-2' id = "dish_name">
+        </div>
+        <div class = 'col-md-2' id = "dish_price">
+        </div>
+        <div class = 'col-md-2' id = "dish_item_type">
+        </div>
+        <div id = "dishbutton"></div>
+    </div>
+    </form>
+    <div id = "addbuttondish"><button id="adddish">Add Dish Entry</button></div>
+    
+</body>
+
+</html>
+{% endblock %}
