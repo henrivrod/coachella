@@ -326,6 +326,10 @@ def add_data():
 def add_merch():
   return render_template("add_merch.html")
 
+@app.route("/add_ticket")
+def add_merch():
+  return render_template("add_ticket.html")
+
 @app.route("/add_tent", methods=['POST'])
 def add_tent():
   
@@ -345,6 +349,16 @@ def add_item():
   numrem = request.form['num_remainingentry']
   price = request.form['price_entry']
   g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', itemid, tentid, itemname, itemtype, numrem, price)
+  return redirect('/')
+
+@app.route("/add_ticket", methods=['POST'])
+def add_ticket():
+
+  id = request.form['id']
+  name = request.form['name']
+  age = request.form['age']
+  type = request.form['type']
+  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s, %s)', id, name, age, type)
   return redirect('/')
 
 """@app.route("/add_item")
