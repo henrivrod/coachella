@@ -251,7 +251,24 @@ def stand(id=0):
 
   return render_template("stand.html", **context)
 
+@app.route('/artist/<id>')
+def artist(id=0):
+  print(request.args)
+  cursor = g.conn.execute("SELECT artist_name FROM artist where artist_id="+str(id))
+  artist = []
+  for result in cursor:
+    artist.append(result)  # can also be accessed using result[0]
+  cursor.close()
 
+  cursor = g.conn.execute("SELECT * FROM song where artist_id="+str(id))
+  songs = []
+  for result in cursor:
+    songs.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(artist=artist, songs=songs)
+
+  return render_template("stand.html", **context)
 
 @app.route('/food')
 def food():
