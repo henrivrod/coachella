@@ -43,7 +43,7 @@
                 {% set aid = a.artist_id %}
                 <div class="row">
                     <div class="col-md-3">
-                        <a href=stand/{{ aid }}>{{ a.artist_name }}</a>
+                        <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-3">
                         {{ a.set_start_time.strftime('%H:%M') }}
@@ -79,7 +79,7 @@
             {% for a in saturday[id] %}
                 <div class="row">
                     <div class="col-md-3">
-                        {{ a.artist_name }}
+                        <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-3">
                         {{ a.set_start_time.strftime('%H:%M') }}
@@ -111,7 +111,7 @@
             {% for a in sunday[id] %}
                 <div class="row">
                     <div class="col-md-3">
-                        {{ a.artist_name }}
+                        <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-3">
                         {{ a.set_start_time.strftime('%H:%M') }}
