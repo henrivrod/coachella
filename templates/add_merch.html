@@ -15,9 +15,9 @@
         if (i < 1) {
             i += 1;
             $("#stage_id").append("<label for='stage_identry'>Stage ID:</label><br>");
-            $("#stage_id").append("<div><input type='number' name='stage_identry' placeholder = 'stage id' min = '1' max = '"+stagecount+"' required></div>");
+            $("#stage_id").append("<div><input type='number' name='stage_identry' min = '1' max = '"+stagecount+"' required></div>");
             $("#num_workers").append("<label for='num_workersentry'>Number of Workers: </label>");
-            $("#num_workers").append("<div><input type='number' name='num_workersentry' placeholder = 'Number of Workers' min = '1' max = '1000' required></div>");
+            $("#num_workers").append("<div><input type='number' name='num_workersentry' min = '1' max = '1000' required></div>");
             $("#tentbutton").append("<input type='submit' value='Submit'>");
             $("#addbuttontent").empty();
             $("#itemhead").empty();
@@ -31,13 +31,13 @@
         if (j < 1) {
             j += 1;
             $("#item_tent_id").append("<label for='item_tentidentry'>Tent ID: </label>");
-            $("#item_tent_id").append("<div><input type='number' name='item_tentidentry' placeholder = 'tent id' min = '1' max = '"+tentCount+"' required></div>");
+            $("#item_tent_id").append("<div><input type='number' name='item_tentidentry' min = '1' max = '"+tentCount+"' required></div>");
             $("#item_name").append("<label for='item_nameentry'>Item Name</label>");
             $("#item_name").append("<div><input type='text' name='item_nameentry' placeholder = 'item name' required></div>");
-            $("#item_type").append("<label for='merchitemtype'>Ticket Type:</label><br>");
-            $("#item_type").append("<div id ='dropdownmerch'><input type='radio' id='hoodie' name='merchitemtype' value='hoodie'> <label for='hoodie'>Hoodie</label><br><input type='radio' id='sweatpants' name='merchitemtype' value='sweatpants'><label for='sweatpants'>Sweatpants</label><br><input type='radio' id='shirt' name='merchitemtype' value='shirt'><label for='shirt'>Shirt</label><br><input type='radio' id='hat' name='merchitemtype' value='hat'><label for='hat'>Hat</label><br><input type='radio' id='other' name='merchitemtype' value='other'><label for='other'>Other</label><br></div>");
+            $("#item_type").append("<label for='merchitemtype'>Merch Type:</label><br>");
+            $("#item_type").append("<div id ='dropdownmerch'><input type='radio' id='hoodie' name='merchitemtype' value='hoodie' required> <label for='hoodie'>Hoodie</label><br><input type='radio' id='sweatpants' name='merchitemtype' value='sweatpants'><label for='sweatpants'>Sweatpants</label><br><input type='radio' id='shirt' name='merchitemtype' value='shirt'><label for='shirt'>Shirt</label><br><input type='radio' id='hat' name='merchitemtype' value='hat'><label for='hat'>Hat</label><br><input type='radio' id='other' name='merchitemtype' value='other'><label for='other'>Other</label><br></div>");
             $("#num_remaining").append("<label for='num_remainingentry'>Number Remaining: </label><br>");
-            $("#num_remaining").append("<div><input type='number' name='num_remainingentry' placeholder = 'Number remaining' min = '1' max = '1000' required></div>");
+            $("#num_remaining").append("<div><input type='number' name='num_remainingentry' min = '1' max = '1000' required></div>");
             $("#price").append("<label for='price_entry'>Price: </label>");
             $("#price").append("<div><input type='number' name='price_entry' placeholder = 'price' min = '0' required></div>");
             $("#itembutton").append("<input type='submit' value='Submit'>");
@@ -55,6 +55,8 @@
     body{ 
       font-size: 15pt;
       font-family: arial;
+      background-image: linear-gradient(rgb(255, 122, 89), rgb(0, 189, 182));
+      min-height: 850px;
     }
 
     #dropdownmerch {

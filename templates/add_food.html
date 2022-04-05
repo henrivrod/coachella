@@ -15,7 +15,7 @@
             if (i < 1) {
                 i += 1;
                 $("#con_stage_id").append("<label for='con_stage_identry'>Stage ID: </label>");
-                $("#con_stage_id").append("<div><input type='number' name='con_stage_identry' placeholder = 'stage id' min = '1' max ='"+stageCount+"' required></div>");
+                $("#con_stage_id").append("<div><input type='number' name='con_stage_identry' min = '1' max ='"+stageCount+"' required></div>");
                 $("#area_name").append("<label for='area_nameentry'>Area Name: </label>");
                 $("#area_name").append("<div><input type='text' name='area_nameentry' placeholder = 'Area Name' required></div>");
                 $("#number_of_stands").append("<label for='num_standsentry'>Number of Stands</label>");
@@ -33,7 +33,7 @@
             if (j < 1) {
                 j += 1;
                 $("#stand_area_id").append("<label for='stand_areaidentry'>Area ID: </label>");
-                $("#stand_area_id").append("<div><input type='number' name='stand_areaidentry' placeholder = 'area id' min = '1' max ='"+areaCount+"' required></div>");
+                $("#stand_area_id").append("<div><input type='number' name='stand_areaidentry' min = '1' max ='"+areaCount+"' required></div>");
                 $("#stand_name").append("<label for='stand_nameentry'>Stand Name: </label>");
                 $("#stand_name").append("<div><input type='text' name='stand_nameentry' placeholder = 'Stand Name' required></div>");
                 $("#standbutton").append("<input type='submit' value='Submit'>");
@@ -49,13 +49,13 @@
             if (k < 1) {
                 k += 1;
                 $("#dish_stand_id").append("<label for='dish_stand_identry'>Stand ID: </label>");
-                $("#dish_stand_id").append("<div><input type='number' name='dish_stand_identry' placeholder = 'stand id' min = '1' max ='"+standCount+"' required></div>");
+                $("#dish_stand_id").append("<div><input type='number' name='dish_stand_identry' min = '1' max ='"+standCount+"' required></div>");
                 $("#dish_name").append("<label for='dish_nameentry'>Dish Name: </label>");
                 $("#dish_name").append("<div><input type='text' name='dish_nameentry' placeholder = 'Dish Name' required></div>");
                 $("#dish_price").append("<label for='dish_priceentry'>Price: </label>");
                 $("#dish_price").append("<div><input type='number' name='dish_priceentry' placeholder = 'price' min = '0' required></div>");
                 $("#dish_item_type").append("<label for='dish_item_typeentry'>Type: </label><br>");
-                $("#dish_item_type").append("<div id ='dropdownmerch'><input type='radio' id='food' name='dish_item_typeentry' value='food'> <label for='food'>Food</label><br><input type='radio' id='drink' name='dish_item_typeentry' value='drink'><label for='drink'>Drink</label><br></div>");
+                $("#dish_item_type").append("<div id ='dropdownmerch'><input type='radio' id='food' name='dish_item_typeentry' value='food' required> <label for='food'>Food</label><br><input type='radio' id='drink' name='dish_item_typeentry' value='drink'><label for='drink'>Drink</label><br></div>");
                 $("#dishbutton").append("<input type='submit' value='Submit'>");
                 $("#addbuttondish").empty();
                 $("#standhead").empty();
@@ -74,6 +74,8 @@
     body{ 
       font-size: 15pt;
       font-family: arial;
+      background-image: linear-gradient(rgb(255, 122, 89), rgb(0, 189, 182));
+      min-height: 850px;
     }
   </style>
 

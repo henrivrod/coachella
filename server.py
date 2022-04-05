@@ -229,13 +229,13 @@ def merch():
 @app.route('/stand/<id>')
 def stand(id=0):
   print(request.args)
-  cursor = g.conn.execute("SELECT s.stand_name, c.area_name FROM stand s, concession_area c where c.area_id = s.area_id AND s.stand_id="+str(id))
+  cursor = g.conn.execute("SELECT s.stand_name, c.area_name FROM stand s, concession_area c where c.area_id = s.area_id AND s.stand_id=%s", (id,))
   stand = []
   for result in cursor:
     stand.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT dish_name, price, item_type FROM dish where stand_id="+str(id))
+  cursor = g.conn.execute("SELECT dish_name, price, item_type FROM dish where stand_id=%s", (id,))
   dish = []
   for result in cursor:
     dish.append(result)  # can also be accessed using result[0]
@@ -351,7 +351,7 @@ def add_tent():
   cursor.close()
   stageid = request.form['stage_identry']
   numworkers = request.form['num_workersentry']
-  g.conn.execute('INSERT INTO merch_tent (tent_id, stage_id, number_of_workers) VALUES (%s, %s, %s)', idCount+1, stageid, numworkers)
+  g.conn.execute('INSERT INTO merch_tent (tent_id, stage_id, number_of_workers) VALUES (%s, %s, %s)', (idCount+1, stageid, numworkers,))
   return redirect('/')
 
 @app.route("/add_item", methods=['POST'])
@@ -367,7 +367,7 @@ def add_item():
   itemtype = request.form['merchitemtype']
   numrem = request.form['num_remainingentry']
   price = request.form['price_entry']
-  g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', idCount+1, tentid, itemname, itemtype, numrem, price)
+  g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', (idCount+1, tentid, itemname, itemtype, numrem, price,))
   return redirect('/')
 
 @app.route("/add_ticket", methods=['POST'])
@@ -383,14 +383,6 @@ def add_ticket():
   g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', (ticketCount+1, name, age, type,))
   return redirect('/')
 
-"""@app.route("/add_item")
-def add_item():
-  tentid = request.form['tent_identry']
-  stageid = request.form['stage_identry']
-  numworkers = request.form['num_workersentry']
-  g.conn.execute('INSERT INTO merch_tent VALUES (?, ?, ?)', tentid, stageid, numworkers)
-  return redirect('/')
-"""
 
 @app.route("/add_concession", methods=['POST'])
 def add_concession():
@@ -402,7 +394,7 @@ def add_concession():
   stageid = request.form['con_stage_identry']
   areaname = request.form['area_nameentry']
   numstand = request.form['num_standsentry']
-  g.conn.execute('INSERT INTO concession_area (area_id, stage_id, area_name, number_of_stands) VALUES (%s, %s, %s, %s)', idCount+1, stageid, areaname, numstand)
+  g.conn.execute('INSERT INTO concession_area (area_id, stage_id, area_name, number_of_stands) VALUES (%s, %s, %s, %s)', (idCount+1, stageid, areaname, numstand,))
   return redirect('/')
 
 @app.route("/add_dish", methods=['POST'])
@@ -416,7 +408,7 @@ def add_dish():
   dishname = request.form['dish_nameentry']
   dishprice = request.form['dish_priceentry']
   dishitemtype = request.form['dish_item_typeentry']
-  g.conn.execute('INSERT INTO dish (dish_id, stand_id, dish_name, price, item_type) VALUES (%s, %s, %s, %s, %s)', idCount+1, standid, dishname, dishprice, dishitemtype)
+  g.conn.execute('INSERT INTO dish (dish_id, stand_id, dish_name, price, item_type) VALUES (%s, %s, %s, %s, %s)', (idCount+1, standid, dishname, dishprice, dishitemtype,))
   return redirect('/')
 
 @app.route("/add_stand", methods=['POST'])
@@ -428,7 +420,7 @@ def add_stand():
   cursor.close()
   areaid = request.form['stand_areaidentry']
   standname = request.form['stand_nameentry']
-  g.conn.execute('INSERT INTO stand (stand_id, area_id, stand_name) VALUES (%s, %s, %s)', idCount+1, areaid, standname)
+  g.conn.execute('INSERT INTO stand (stand_id, area_id, stand_name) VALUES (%s, %s, %s)', (idCount+1, areaid, standname,))
   return redirect('/')
 
 @app.route('/login')

@@ -7,12 +7,18 @@
     body{ 
       font-size: 15pt;
       font-family: arial;
+      background-image: linear-gradient(rgb(255, 122, 89), rgb(0, 189, 182));
+      min-height: 850px;
+    }
+    .foodspacing {
+      margin-bottom: 40px;
     }
   </style>
 
 
 <body>
     <div>
+        <div class = 'foodspacing'></div>
         {% for area in area_name %}
         <h1>Area Name: {{area.area_name}}</h1>
         {% for stage in stage_name %}
@@ -26,6 +32,7 @@
         <div><a href=stand/{{stand.stand_id}}>{{stand.stand_name}}</a></div>
         {% endif %}
         {% endfor %}
+        <div class = 'foodspacing'></div>
         {% endfor %}
     </div>
 </body>
