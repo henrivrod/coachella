@@ -268,7 +268,7 @@ def artist(id=0):
 
   context = dict(artist=artist, songs=songs)
 
-  return render_template("stand.html", **context)
+  return render_template("artist.html", **context)
 
 @app.route('/food')
 def food():
