@@ -203,10 +203,6 @@ def stages():
   cursor.close()
 
   context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
-<<<<<<< HEAD
-
-=======
->>>>>>> a3556ec8a697376178756746bcf6a172d8905a58
   return render_template("stages.html", **context)
 
 
