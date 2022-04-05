@@ -195,21 +195,9 @@ def stages():
     stages.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
-  length = 0
-  friday = [[],[],[],[],[],[],[]];
-  saturday = [[],[],[],[],[],[],[]];
-  sunday = [[],[],[],[],[],[],[]];
+  cursor = g.conn.execute("SELECT COUNT(DISTINCT artist_id) FROM artist")
   for result in cursor:
-    length=length+1
-    if (result.set_day=="Friday"):
-      friday[result.stage_id-1].append(result)
-    if (result.set_day=="Saturday"):
-      saturday[result.stage_id-1].append(result)
-    if (result.set_day=="Sunday"):
-      sunday[result.stage_id-1].append(result)
-  cursor.close()
-
+    length = result
   cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
   songs = []
   for i in range(length):
@@ -218,28 +206,23 @@ def stages():
     songs[result.artist_id].append(result)  # can also be accessed using result[0]
   cursor.close()
 
+  cursor = g.conn.execute("SELECT artist_id,artist_name, set_start_time, set_end_time, stage_id, set_day FROM artist ORDER BY set_start_time")
+  friday = [[],[],[],[],[],[],[]];
+  saturday = [[],[],[],[],[],[],[]];
+  sunday = [[],[],[],[],[],[],[]];
+  for result in cursor:
+    if (result.set_day=="Friday"):
+      friday[result.stage_id-1].append(result)
+    if (result.set_day=="Saturday"):
+      saturday[result.stage_id-1].append(result)
+    if (result.set_day=="Sunday"):
+      sunday[result.stage_id-1].append(result)
+  cursor.close()
+
   context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
 
   return render_template("stages.html", **context)
 
-@app.route('/artist/<id>')
-def artist(id=0):
-  print(request.args)
-  cursor = g.conn.execute("SELECT artist_name FROM artist where artist_id="+str(id))
-  artist = []
-  for result in cursor:
-    artist.append(result)  # can also be accessed using result[0]
-  cursor.close()
-
-  cursor = g.conn.execute("SELECT song_name,order_in_set,song_length,special_guest_name FROM song where artist_id="+str(id))
-  songs = []
-  for result in cursor:
-    songs.append(result)  # can also be accessed using result[0]
-  cursor.close()
-
-  context = dict(artist=artist, songs=songs)
-
-  return render_template("artist.html", **context)
 
 @app.route('/merch')
 def merch():
@@ -341,24 +324,15 @@ def add_tent():
 
 @app.route("/add_item", methods=['POST'])
 def add_item():
-  
   itemid = request.form['item_identry']
   tentid = request.form['item_tentidentry']
   itemname = request.form['item_nameentry']
-  itemtype = request.form['item_typeentry']
+  itemtype = request.form['merchitemtype']
   numrem = request.form['num_remainingentry']
   price = request.form['price_entry']
+  print(itemtype)
   g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', itemid, tentid, itemname, itemtype, numrem, price)
   return redirect('/')
-
-"""@app.route("/add_item")
-def add_item():
-  tentid = request.form['tent_identry']
-  stageid = request.form['stage_identry']
-  numworkers = request.form['num_workersentry']
-  g.conn.execute('INSERT INTO merch_tent VALUES (?, ?, ?)', tentid, stageid, numworkers)
-  return redirect('/')
-"""
 
 @app.route("/add_concession", methods=['POST'])
 def add_concession():
