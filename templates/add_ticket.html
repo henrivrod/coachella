@@ -19,16 +19,16 @@
     <h1>Add Ticket</h1>
     <form method = "POST" action = "/add_ticket">
         <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br>
+        <input type="text" id="name" name="name" required><br>
 
         <label for="type">Ticket Type:</label><br>
-        <input type="radio" id="GA" name="type" value="GA">
+        <input type="radio" id="GA" name="type" value="GA" required>
         <label for="GA">GA</label><br>
         <input type="radio" id="VIP" name="type" value="VIP">
         <label for="VIP">VIP</label><br>
 
         <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="1" max="150">
+        <input type="number" id="age" name="age" min="1" max="150" required>
 
         <input type="submit" value="Submit">
     </form>
