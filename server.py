@@ -42,11 +42,15 @@ DATABASEURI = "postgresql://eh2889:coachella@35.211.155.104/proj1part2"
 #
 engine = create_engine(DATABASEURI)
 
-cursor = g.conn.execute("SELECT ticket_id FROM ticket")
-ticketCount = 0
-for result in cursor:
-  ticketCount=ticketCount+1
-cursor.close()
+#
+# Example of running queries in your database
+# Note that this will probably not work if you already have a table named 'test' in your database, containing meaningful data. This is only an example showing you how to run queries in your database using SQLAlchemy.
+#
+engine.execute("""CREATE TABLE IF NOT EXISTS test (
+  id serial,
+  name text
+);""")
+engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
 
 
 @app.before_request
@@ -353,12 +357,15 @@ def add_item():
 
 @app.route("/add_ticket", methods=['POST'])
 def add_ticket():
-
+  cursor = g.conn.execute("SELECT ticket_id FROM ticket")
+  ticketCount = 0
+  for result in cursor:
+    ticketCount=ticketCount+1
+  cursor.close()
   name = request.form['name']
   age = request.form['age']
   type = request.form['type']
   g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', ticketCount+1, name, age, type)
-  ticketCount=ticketCount+1
   return redirect('/')
 
 """@app.route("/add_item")
