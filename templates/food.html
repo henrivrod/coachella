@@ -23,7 +23,11 @@
         <b>List of stands in {{area.area_name}}</b>
         {% for stand in stand_name %}
         {% if stand.area_id == area.area_id %}
+<<<<<<< HEAD
         <div><a href=stand/{{stand.stand_id}}>{{stand.stand_name}}</a></div>
+=======
+        <div><a href="stand/{{stand.stand_id}}">{{stand.stand_name}}</a></div>
+>>>>>>> ffdaa35983d9e8f4241a73d1b7c7a5cab3331303
         {% endif %}
         {% endfor %}
         {% endfor %}

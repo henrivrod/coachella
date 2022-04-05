@@ -219,7 +219,11 @@ def stages():
       sunday[result.stage_id-1].append(result)
   cursor.close()
 
+<<<<<<< HEAD
   context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
+=======
+  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
+>>>>>>> ffdaa35983d9e8f4241a73d1b7c7a5cab3331303
 
   return render_template("stages.html", **context)
 
@@ -313,6 +317,10 @@ def add_merch():
 def add_food():
   return render_template("add_food.html")
 
+@app.route("/add_ticket")
+def add_ticket_page():
+  return render_template("add_ticket.html")
+
 @app.route("/add_tent", methods=['POST'])
 def add_tent():
   
@@ -334,9 +342,34 @@ def add_item():
   g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', itemid, tentid, itemname, itemtype, numrem, price)
   return redirect('/')
 
+<<<<<<< HEAD
+=======
+@app.route("/add_ticket", methods=['POST'])
+def add_ticket():
+  cursor = g.conn.execute("SELECT ticket_id FROM ticket")
+  ticketCount = 0
+  for result in cursor:
+    ticketCount=ticketCount+1
+  cursor.close()
+  name = request.form['name']
+  age = request.form['age']
+  type = request.form['type']
+  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', ticketCount+1, name, age, type)
+  return redirect('/')
+
+"""@app.route("/add_item")
+def add_item():
+  tentid = request.form['tent_identry']
+  stageid = request.form['stage_identry']
+  numworkers = request.form['num_workersentry']
+  g.conn.execute('INSERT INTO merch_tent VALUES (?, ?, ?)', tentid, stageid, numworkers)
+  return redirect('/')
+"""
+
+>>>>>>> ffdaa35983d9e8f4241a73d1b7c7a5cab3331303
 @app.route("/add_concession", methods=['POST'])
 def add_concession():
-  
+
   areaid = request.form['area_identry']
   stageid = request.form['con_stage_identry']
   areaname = request.form['area_nameentry']
@@ -346,7 +379,7 @@ def add_concession():
 
 @app.route("/add_dish", methods=['POST'])
 def add_dish():
-  
+
   dishid = request.form['dish_identry']
   standid = request.form['dish_stand_identry']
   dishname = request.form['dish_nameentry']
@@ -357,7 +390,7 @@ def add_dish():
 
 @app.route("/add_stand", methods=['POST'])
 def add_stand():
-  
+
   standid = request.form['stand_identry']
   areaid = request.form['stand_areaidentry']
   standname = request.form['stand_nameentry']

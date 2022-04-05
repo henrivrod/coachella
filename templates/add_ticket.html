@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'add_ticket.js') }}"></script>
+
+    <html>
+    <head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+
+    <style>
+        body{
+            font-size: 15pt;
+            font-family: arial;
+        }
+    </style>
+
+
+    <body>
+    <h1>Add Ticket</h1>
+    <form method = "POST" action = "/add_ticket">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="type">Ticket Type:</label><br>
+        <input type="radio" id="GA" name="type" value="GA">
+        <label for="GA">GA</label><br>
+        <input type="radio" id="VIP" name="type" value="VIP">
+        <label for="VIP">VIP</label><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="1" max="150">
+
+        <input type="submit" value="Submit">
+    </form>
+
+    </body>
+
+    </html>
+{% endblock %}
