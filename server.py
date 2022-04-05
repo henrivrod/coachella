@@ -348,7 +348,6 @@ def add_item():
   return redirect('/')
 """
 
->>>>>>> ffdaa35983d9e8f4241a73d1b7c7a5cab3331303
 @app.route("/add_concession", methods=['POST'])
 def add_concession():
 
