@@ -18,6 +18,7 @@ import os
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response
+import psycopg2
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -254,7 +255,9 @@ def stand(id=0):
 @app.route('/artist/<id>')
 def artist(id=0):
   print(request.args)
-  cursor = g.conn.execute("SELECT artist_name FROM artist where artist_id="+str(id))
+  txtUserId = id
+  txtSQL = "SELECT artist_name FROM artist where artist_id=@0"
+  cursor = g.conn.execute(txtSQL,txtUserId)
   artist = []
   for result in cursor:
     artist.append(result)  # can also be accessed using result[0]
