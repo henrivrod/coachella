@@ -4,12 +4,10 @@ $(document).ready(function () {
     $("#addtent").click(function () {
         if (i < 1) {
             i += 1;
-            $("#tent_id").append("<div><input type='text' name='tent_identry' placeholder = 'tent id'></div>");
-            //$("#tent_id").append("<label for='tent_identry' id='tentid_warning'></label>");
-            $("#stage_id").append("<div><input type='text' name='stage_identry' placeholder = 'stage id'></div>");
-            //$("#stage_id").append("<label for='stage_identry' id='stageid_warning'></label>");
-            $("#num_workers").append("<div><input type='text' name='num_workersentry' placeholder = 'Number of Workers'></div>");
-            //$("#num_workers").append("<label for='num_workersentry' id='numworkerswarning'></label>");
+            $("#stage_id").append("<label for='stage_identry'>Stage ID:</label><br>");
+            $("#stage_id").append("<div><input type='number' name='stage_identry' placeholder = 'stage id' min = '1' max = "+stagecount+"'></div>");
+            $("#num_workers").append("<label for='num_workersentry'>Number of Workers: </label>");
+            $("#num_workers").append("<div><input type='number' name='num_workersentry' placeholder = 'Number of Workers' min = '1' max = '1000'></div>");
             $("#tentbutton").append("<input type='submit' value='Submit'>");
             $("#addbuttontent").empty();
             $("#itemhead").empty();
@@ -22,8 +20,6 @@ $(document).ready(function () {
     $("#additem").click(function () {
         if (j < 1) {
             j += 1;
-            $("#item_id").append("<div><input type='text' name='item_identry' placeholder = 'item id'></div>");
-            //$("#item_id").append("<label for='item_identry' id='itemid_warning'></label>");
             $("#item_tent_id").append("<div><input type='text' name='item__tentidentry' placeholder = 'tent id'></div>");
             //$("#item_tent_id").append("<label for='item_tentidentry' id='item_tentid_warning'></label>");
             $("#item_name").append("<div><input type='text' name='item_nameentry' placeholder = 'item name'></div>");

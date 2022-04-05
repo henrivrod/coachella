@@ -3,13 +3,9 @@
 """
 Columbia's COMS W4111.003 Introduction to Databases
 Example Webserver
-
 To run locally:
-
     python server.py
-
 Go to http://localhost:8111 in your browser.
-
 A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 """
@@ -59,7 +55,6 @@ def before_request():
   This function is run at the beginning of every web request 
   (every time you enter an address in the web browser).
   We use it to setup a database connection that can be used throughout the request.
-
   The variable g is globally accessible.
   """
   try:
@@ -98,11 +93,9 @@ def teardown_request(exception):
 def index():
   """
   request is a special object that Flask provides to access web request information:
-
   request.method:   "GET" or "POST"
   request.form:     if the browser submitted a form, this contains the data in the form
   request.args:     dictionary of URL arguments, e.g., {a:1, b:2} for http://localhost?a=1&b=2
-
   See its API: http://flask.pocoo.org/docs/0.10/api/#incoming-request-data
   """
 
@@ -219,11 +212,7 @@ def stages():
       sunday[result.stage_id-1].append(result)
   cursor.close()
 
-<<<<<<< HEAD
-  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, songs=songs)
-=======
   context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
->>>>>>> ffdaa35983d9e8f4241a73d1b7c7a5cab3331303
 
   return render_template("stages.html", **context)
 
@@ -278,12 +267,6 @@ def food():
   area_names = []
   for result in cursor:
     area_names.append(result)
-    """
-    if result['area_id'] in concessiondata:
-      concessiondata[result['area_id']].append(result['area_name'])  # can also be accessed using result[0]
-    else:
-      concessiondata[result['area_id']] = [result['area_name']]
-      """
   cursor.close()
 
   
@@ -311,11 +294,43 @@ def add_data():
 
 @app.route("/add_merch")
 def add_merch():
-  return render_template("add_merch.html")
+  cursor = g.conn.execute("SELECT stage_id FROM stage")
+  stageCount = 0
+  for result in cursor:
+    stageCount = stageCount+1
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT tent_id FROM merch_tent")
+  tentCount = 0
+  for result in cursor:
+    tentCount=tentCount+1
+  cursor.close()
+
+  context = dict(stages = stageCount, tents = tentCount)
+  return render_template("add_merch.html", **context)
 
 @app.route("/add_food")
 def add_food():
-  return render_template("add_food.html")
+  cursor = g.conn.execute("SELECT stage_id FROM stage")
+  stageCount = 0
+  for result in cursor:
+    stageCount = stageCount+1
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT area_id FROM concession_area")
+  areaCount = 0
+  for result in cursor:
+    areaCount=areaCount+1
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT stand_id FROM stand")
+  standCount = 0
+  for result in cursor:
+    standCount = standCount+1
+  cursor.close()
+
+  context = dict(stages = stageCount, areas = areaCount, stands = standCount)
+  return render_template("add_food.html", **context)
 
 @app.route("/add_ticket")
 def add_ticket_page():
@@ -323,27 +338,32 @@ def add_ticket_page():
 
 @app.route("/add_tent", methods=['POST'])
 def add_tent():
-  
-  tentid = request.form['tent_identry']
+  cursor = g.conn.execute("SELECT tent_id FROM merch_tent")
+  idCount = 0
+  for result in cursor:
+    idCount=idCount+1
+  cursor.close()
   stageid = request.form['stage_identry']
   numworkers = request.form['num_workersentry']
-  g.conn.execute('INSERT INTO merch_tent (tent_id, stage_id, number_of_workers) VALUES (%s, %s, %s)', tentid, stageid, numworkers)
+  g.conn.execute('INSERT INTO merch_tent (tent_id, stage_id, number_of_workers) VALUES (%s, %s, %s)', idCount+1, stageid, numworkers)
   return redirect('/')
 
 @app.route("/add_item", methods=['POST'])
 def add_item():
-  itemid = request.form['item_identry']
+  cursor = g.conn.execute("SELECT item_id FROM merch_item")
+  idCount = 0
+  for result in cursor:
+    idCount=idCount+1
+  cursor.close()
+
   tentid = request.form['item_tentidentry']
   itemname = request.form['item_nameentry']
   itemtype = request.form['merchitemtype']
   numrem = request.form['num_remainingentry']
   price = request.form['price_entry']
-  print(itemtype)
-  g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', itemid, tentid, itemname, itemtype, numrem, price)
+  g.conn.execute('INSERT INTO merch_item (item_id, tent_id, item_name, item_type, number_remaining, price) VALUES (%s, %s, %s, %s, %s, %s)', idCount+1, tentid, itemname, itemtype, numrem, price)
   return redirect('/')
 
-<<<<<<< HEAD
-=======
 @app.route("/add_ticket", methods=['POST'])
 def add_ticket():
   cursor = g.conn.execute("SELECT ticket_id FROM ticket")
@@ -366,35 +386,43 @@ def add_item():
   return redirect('/')
 """
 
->>>>>>> ffdaa35983d9e8f4241a73d1b7c7a5cab3331303
 @app.route("/add_concession", methods=['POST'])
 def add_concession():
-
-  areaid = request.form['area_identry']
+  cursor = g.conn.execute("SELECT area_id FROM concession_area")
+  idCount = 0
+  for result in cursor:
+    idCount=idCount+1
+  cursor.close()
   stageid = request.form['con_stage_identry']
   areaname = request.form['area_nameentry']
   numstand = request.form['num_standsentry']
-  g.conn.execute('INSERT INTO concession_area (area_id, stage_id, area_name, number_of_stands) VALUES (%s, %s, %s, %s)', areaid, stageid, areaname, numstand)
+  g.conn.execute('INSERT INTO concession_area (area_id, stage_id, area_name, number_of_stands) VALUES (%s, %s, %s, %s)', idCount+1, stageid, areaname, numstand)
   return redirect('/')
 
 @app.route("/add_dish", methods=['POST'])
 def add_dish():
-
-  dishid = request.form['dish_identry']
+  cursor = g.conn.execute("SELECT dish_id FROM dish")
+  idCount = 0
+  for result in cursor:
+    idCount=idCount+1
+  cursor.close()
   standid = request.form['dish_stand_identry']
   dishname = request.form['dish_nameentry']
   dishprice = request.form['dish_priceentry']
   dishitemtype = request.form['dish_item_typeentry']
-  g.conn.execute('INSERT INTO merch_item (dish_id, stand_id, dish_name, price, item_type) VALUES (%s, %s, %s, %s, %s)', dishid, standid, dishname, dishprice, dishitemtype)
+  g.conn.execute('INSERT INTO dish (dish_id, stand_id, dish_name, price, item_type) VALUES (%s, %s, %s, %s, %s)', idCount+1, standid, dishname, dishprice, dishitemtype)
   return redirect('/')
 
 @app.route("/add_stand", methods=['POST'])
 def add_stand():
-
-  standid = request.form['stand_identry']
+  cursor = g.conn.execute("SELECT stand_id FROM stand")
+  idCount = 0
+  for result in cursor:
+    idCount=idCount+1
+  cursor.close()
   areaid = request.form['stand_areaidentry']
   standname = request.form['stand_nameentry']
-  g.conn.execute('INSERT INTO stand (stand_id, area_id, stand_name) VALUES (%s, %s, %s)', standid, areaid, standname)
+  g.conn.execute('INSERT INTO stand (stand_id, area_id, stand_name) VALUES (%s, %s, %s)', idCount+1, areaid, standname)
   return redirect('/')
 
 @app.route('/login')
@@ -415,13 +443,9 @@ if __name__ == "__main__":
     """
     This function handles command line parameters.
     Run the server using:
-
         python server.py
-
     Show the help text using:
-
         python server.py --help
-
     """
 
     HOST, PORT = host, port

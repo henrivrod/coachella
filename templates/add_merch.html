@@ -2,9 +2,53 @@
 
 {% block content %}
 
-<script type="text/javascript" src="{{ url_for('static', filename = 'add_merch.js') }}"></script>
 
 <html>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+    let stagecount = '{{ stages }}';
+    let tentCount = '{{ tents }}';
+    let i = 0;
+    let j = 0;
+    $("#addtent").click(function () {
+        if (i < 1) {
+            i += 1;
+            $("#stage_id").append("<label for='stage_identry'>Stage ID:</label><br>");
+            $("#stage_id").append("<div><input type='number' name='stage_identry' placeholder = 'stage id' min = '1' max = '"+stagecount+"' required></div>");
+            $("#num_workers").append("<label for='num_workersentry'>Number of Workers: </label>");
+            $("#num_workers").append("<div><input type='number' name='num_workersentry' placeholder = 'Number of Workers' min = '1' max = '1000' required></div>");
+            $("#tentbutton").append("<input type='submit' value='Submit'>");
+            $("#addbuttontent").empty();
+            $("#itemhead").empty();
+            $("#addbuttonitem").empty();
+        }
+    });
+
+    
+
+    $("#additem").click(function () {
+        if (j < 1) {
+            j += 1;
+            $("#item_tent_id").append("<label for='item_tentidentry'>Tent ID: </label>");
+            $("#item_tent_id").append("<div><input type='number' name='item_tentidentry' placeholder = 'tent id' min = '1' max = '"+tentCount+"' required></div>");
+            $("#item_name").append("<label for='item_nameentry'>Item Name</label>");
+            $("#item_name").append("<div><input type='text' name='item_nameentry' placeholder = 'item name' required></div>");
+            $("#item_type").append("<label for='merchitemtype'>Ticket Type:</label><br>");
+            $("#item_type").append("<div id ='dropdownmerch'><input type='radio' id='hoodie' name='merchitemtype' value='hoodie'> <label for='hoodie'>Hoodie</label><br><input type='radio' id='sweatpants' name='merchitemtype' value='sweatpants'><label for='sweatpants'>Sweatpants</label><br><input type='radio' id='shirt' name='merchitemtype' value='shirt'><label for='shirt'>Shirt</label><br><input type='radio' id='hat' name='merchitemtype' value='hat'><label for='hat'>Hat</label><br><input type='radio' id='other' name='merchitemtype' value='other'><label for='other'>Other</label><br></div>");
+            $("#num_remaining").append("<label for='num_remainingentry'>Number Remaining: </label><br>");
+            $("#num_remaining").append("<div><input type='number' name='num_remainingentry' placeholder = 'Number remaining' min = '1' max = '1000' required></div>");
+            $("#price").append("<label for='price_entry'>Price: </label>");
+            $("#price").append("<div><input type='number' name='price_entry' placeholder = 'price' min = '0' required></div>");
+            $("#itembutton").append("<input type='submit' value='Submit'>");
+            $("#addbuttonitem").empty();
+            $("#tenthead").empty();
+            $("#addbuttontent").empty();
+        }
+    });
+
+    });
+  </script>
     <head><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
 
   <style>
@@ -17,6 +61,10 @@
       margin-left: 30px;
     }
 
+    #toprowtent {
+      margin-bottom: 20px;
+    }
+
   </style>
 
 
@@ -24,33 +72,34 @@
     <div id="tenthead"><h1>Add Merch Tent Entry</h1></div>
     <form method = "POST" action = "/add_tent">
     <div class = 'row'>
-        <div class = 'col-md-4' id = "tent_id">
+        <div class = 'col-md-6' id = "stage_id">
         </div>
-        <div class = 'col-md-4' id = "stage_id">
+        <div class = 'col-md-6' id = "num_workers">
         </div>
-        <div class = 'col-md-4' id = "num_workers">
-        </div>
-        <div id='tentbutton'></div>
+    </div>
+    <div class="row">
+      <div id='tentbutton'></div>
     </div>
     </form>
     <div  id = "addbuttontent"><button id="addtent">Add Tent Entry</button></div>
     <div id ="itemhead"><h1>Add Merch Item Entry</h1></div>
     <form method = "POST" action = "/add_item">
-    <div class = 'row'>
-        <div class = 'col-md-2' id = "item_id">
+    <div class = 'row' id = 'toprowtent'>
+        <div class = 'col-md-3' id = "item_tent_id">
         </div>
-        <div class = 'col-md-2' id = "item_tent_id">
+        <div class = 'col-md-3' id = "item_name">
         </div>
-        <div class = 'col-md-2' id = "item_name">
+        <div class = 'col-md-3' id = "num_remaining">
         </div>
-        <div class = 'col-md-2' id = "item_type">
+        <div class = 'col-md-3' id = "price">
         </div>
-        <div class = 'col-md-2' id = "num_remaining">
-        </div>
-        <div class = 'col-md-2' id = "price">
-        </div>
-        <div id = "itembutton"></div>
+        
     </div>
+    <div class="row">
+      <div class = 'col-md-4' id = "item_type">
+      </div>  
+    </div>
+    <div id = "itembutton"></div>
     </form>
     <div id = "addbuttonitem"><button id="additem">Add Item Entry</button></div>
     
