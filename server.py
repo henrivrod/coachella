@@ -261,7 +261,7 @@ def artist(id=0):
     artist.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT * FROM song where artist_id="+str(id))
+  cursor = g.conn.execute("SELECT * FROM song where artist_id=%s", (id,))
   songs = []
   for result in cursor:
     songs.append(result)  # can also be accessed using result[0]
@@ -354,7 +354,7 @@ def add_ticket():
   name = request.form['name']
   age = request.form['age']
   type = request.form['type']
-  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', ticketCount+1, name, age, type)
+  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', (ticketCount+1, name, age, type,))
   return redirect('/')
 
 """@app.route("/add_item")
