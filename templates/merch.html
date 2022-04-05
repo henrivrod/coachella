@@ -12,11 +12,11 @@
 
 
 <body>
+<div class='container'>
     {% for tent in tent_info %}
     <h1>MERCH TENT {{tent.tent_id}}</h1>
     <p>Closest to: {{tent.stage_name}}</p>
     <p>Number of Workers: {{tent.number_of_workers}}</p>
-    <div class='container'>
         <div class='row'>
             <div class='col-md-3'><b>Item Name</b></div>
             <div class='col-md-3'><b>Item Type</b></div>
