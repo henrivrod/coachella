@@ -199,7 +199,9 @@ def stages():
   for result in cursor:
     length = result
   cursor = g.conn.execute("SELECT song_name, artist_id FROM song")
-  songs =[[] for i in range(length)]
+  songs = []
+  for i in range(length):
+    songs.append([])
   for result in cursor:
     songs[result.artist_id].append(result)  # can also be accessed using result[0]
   cursor.close()
