@@ -362,7 +362,7 @@ def add_ticket():
   name = request.form['name']
   age = request.form['age']
   type = request.form['type']
-  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s, %s)', id, name, age, type)
+  g.conn.execute('INSERT INTO ticket (ticket_id,festival_id,purchaser_name,purchaser_age,ticket_type) VALUES (%s, 1, %s, %s, %s)', id, name, age, type)
   return redirect('/')
 
 """@app.route("/add_item")
