@@ -13,8 +13,38 @@
 
     <body>
     <h1>{{ artist[0].artist_name }}</h1>
+    <h3>Songs:</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                Order in set
+            </div>
+            <div class="col-md-3">
+                Song name
+            </div>
+            <div class="col-md-3">
+                Song length
+            </div>
+            <div class="col-md-3">
+                Special Guests
+            </div>
+        </div>
+    </div>
     {% for s in songs %}
-        {{s.order_in_set}}. {{s.song_name}}, {{s.song_length}} minutes, {{s.special_guest_name}}
+        <div class="row">
+            <div class="col-md-3">
+                {{s.order_in_set}}
+            </div>
+            <div class="col-md-3">
+                {{s.song_name}}
+            </div>
+            <div class="col-md-3">
+                {{s.song_length}} minutes
+            </div>
+            <div class="col-md-3">
+                {{s.special_guest_name}}
+            </div>
+        </div>
         <br>
     {% endfor %}
 
