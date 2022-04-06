@@ -23,7 +23,7 @@
 <body>
     {% for stand in stand_info %}
     <h1>Stand Name: {{stand.stand_name}}</h1>
-    <p>Located in: {{stand.area_name}}</p>
+    <p>Located in: <a href="/food/#area{{stand.area_name}}">{{stand.area_name}}</a></p>
     <b>List of Dishes Sold at {{stand.stand_name}}</b>
     {% endfor %}
     <div class='container'>
