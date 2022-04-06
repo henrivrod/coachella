@@ -20,16 +20,16 @@
     <div>
         <div class = 'foodspacing'></div>
         {% for area in area_name %}
-        <h1>Area Name: {{area.area_name}}</h1>
+        <h1 id="area{{area.area_name}}">Area Name: {{area.area_name}}</h1>
         {% for stage in stage_name %}
         {% if stage.area_id == area.area_id %}
-        <p>Closest Stage: {{stage.stage_name}}</p>
+        <p>Closest Stage: <a href="/stages/#{{stage.stage_name}}">{{stage.stage_name}}</a></p>
         {% endif %}
         {% endfor %}
         <b>List of stands in {{area.area_name}}</b>
         {% for stand in stand_name %}
         {% if stand.area_id == area.area_id %}
-        <div><a href=stand/{{stand.stand_id}}>{{stand.stand_name}}</a></div>
+        <div><a href=/stand/{{stand.stand_id}}>{{stand.stand_name}}</a></div>
         {% endif %}
         {% endfor %}
         <div class = 'foodspacing'></div>

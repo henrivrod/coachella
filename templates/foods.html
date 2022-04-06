@@ -12,27 +12,19 @@
       background-image: linear-gradient(rgb(255, 122, 89), rgb(0, 189, 182));
       min-height: 850px;
     }
-    a {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    }
   </style>
 
 
 <body>
-    {% for stand in stand_info %}
-    <h1>Stand Name: {{stand.stand_name}}</h1>
-    <p>Located in: {{stand.area_name}}</p>
-    <b>List of Dishes Sold at {{stand.stand_name}}</b>
-    {% endfor %}
+    <h1>FOOD</h1>
+    <a href="/food/">Back to Concessions</a>
     <div class='container'>
         <div class='row'>
             <div class='col-md-4'><b>Dish Name</b></div>
             <div class='col-md-4'><b>Price</b></div>
             <div class='col-md-4'><b>Item Type</b></div>
         </div>
-        {% for dish in dishes %}
+        {% for dish in food %}
         <div class="row">
             <div class="col-md-4">
                 {{dish.dish_name}}
@@ -41,11 +33,10 @@
                 {{dish.price}}
             </div>
             <div class="col-md-4">
-                <a href="/{{dish.item_type}}/">{{dish.item_type}}</a>
+                {{dish.item_type}}
             </div>
         </div>
-        {% endfor %}
-        
+        {% endfor %}    
     </div>
 
 </body>

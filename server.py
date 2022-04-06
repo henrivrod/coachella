@@ -159,11 +159,8 @@ def index():
 # Notice that the function name is another() rather than index()
 # The functions for each app.route need to have different names
 #
-@app.route('/another')
-def another():
-  return render_template("another.html")
 
-@app.route('/tickets')
+@app.route('/tickets/')
 def tickets():
   # DEBUG: this is debugging code to see what request looks like
   print(request.args)
@@ -178,7 +175,7 @@ def tickets():
 
   return render_template("tickets.html", **context)
 
-@app.route('/stages')
+@app.route('/stages/')
 def stages():
   # DEBUG: this is debugging code to see what request looks like
   print(request.args)
@@ -202,11 +199,23 @@ def stages():
       sunday[result.stage_id-1].append(result)
   cursor.close()
 
-  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday)
+  cursor = g.conn.execute("SELECT tent_id, stage_id FROM merch_tent")
+  merchtents = []
+  for result in cursor:
+    merchtents.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  cursor = g.conn.execute("SELECT area_name, stage_id FROM concession_area")
+  areas = []
+  for result in cursor:
+    areas.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(stages = stages, friday=friday, saturday=saturday, sunday=sunday, merch = merchtents, con = areas)
   return render_template("stages.html", **context)
 
 
-@app.route('/merch')
+@app.route('/merch/')
 def merch():
   print(request.args)
   cursor = g.conn.execute("SELECT m.tent_id, m.number_of_workers, s.stage_name FROM merch_tent m, stage s where m.stage_id = s.stage_id")
@@ -215,7 +224,6 @@ def merch():
     tents.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  print(request.args)
   cursor = g.conn.execute("SELECT item_id, tent_id, item_name, item_type, number_remaining, price FROM merch_item order by tent_id")
   items = []
   for result in cursor:
@@ -264,7 +272,7 @@ def artist(id=0):
 
   return render_template("artist.html", **context)
 
-@app.route('/food')
+@app.route('/food/')
 def food():
   print(request.args)
    
@@ -422,6 +430,111 @@ def add_stand():
   standname = request.form['stand_nameentry']
   g.conn.execute('INSERT INTO stand (stand_id, area_id, stand_name) VALUES (%s, %s, %s)', (idCount+1, areaid, standname,))
   return redirect('/')
+
+@app.route('/hoodie/')
+def hoodie():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT item_id, tent_id, item_name, item_type, number_remaining, price FROM merch_item WHERE item_type = 'hoodie'")
+  items = []
+  for result in cursor:
+    items.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(hoodie = items)
+
+  return render_template("hoodie.html", **context)
+
+@app.route('/shirt/')
+def shirt():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT item_id, tent_id, item_name, item_type, number_remaining, price FROM merch_item WHERE item_type = 'shirt'")
+  items = []
+  for result in cursor:
+    items.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(shirt = items)
+
+  return render_template("shirt.html", **context)
+
+@app.route('/sweatpants/')
+def sweatpants():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT item_id, tent_id, item_name, item_type, number_remaining, price FROM merch_item WHERE item_type = 'sweatpants'")
+  items = []
+  for result in cursor:
+    items.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(sweatpants = items)
+
+  return render_template("sweatpants.html", **context)
+
+@app.route('/hat/')
+def hat():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT item_id, tent_id, item_name, item_type, number_remaining, price FROM merch_item WHERE item_type = 'hat'")
+  items = []
+  for result in cursor:
+    items.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(hat = items)
+
+  return render_template("hat.html", **context)
+
+@app.route('/other/')
+def other():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT item_id, tent_id, item_name, item_type, number_remaining, price FROM merch_item WHERE item_type = 'other'")
+  items = []
+  for result in cursor:
+    items.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(other = items)
+
+  return render_template("other.html", **context)
+
+@app.route('/drink/')
+def drink():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT dish_name, price, item_type FROM dish WHERE item_type='drink'")
+  dish = []
+  for result in cursor:
+    dish.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(drink = dish)
+
+  return render_template("drink.html", **context)
+
+@app.route('/foods/')
+def foods():
+  # DEBUG: this is debugging code to see what request looks like
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT dish_name, price, item_type FROM dish WHERE item_type='food'")
+  dish = []
+  for result in cursor:
+    dish.append(result)  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(food = dish)
+
+  return render_template("foods.html", **context)
 
 @app.route('/login')
 def login():

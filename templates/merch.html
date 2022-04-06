@@ -23,8 +23,8 @@
     <div class = 'merchspacing'></div>
     {% for tent in tent_info %}
     
-    <h1>MERCH TENT {{tent.tent_id}}</h1>
-    <p>Closest to: {{tent.stage_name}}</p>
+    <h1 id = "merchtent{{tent.tent_id}}">MERCH TENT {{tent.tent_id}}</h1>
+    <p>Closest to: <a href="/stages/#{{tent.stage_name}}">{{tent.stage_name}}</a></p>
     <p>Number of Workers: {{tent.number_of_workers}}</p>
         <div class='row'>
             <div class='col-md-3'><b>Item Name</b></div>
@@ -39,7 +39,7 @@
                 {{item.item_name}}
             </div>
             <div class="col-md-3">
-                {{item.item_type}}
+                <a href ="/{{item.item_type}}/">{{item.item_type}}</a>
             </div>
             <div class="col-md-3">
                 {{item.number_remaining}}

@@ -8,6 +8,7 @@
     .stage{
         font-size: x-large;
         font-weight: bold;
+        margin-bottom: 20px;
     }
     .day{
         font-weight: bold;
@@ -21,14 +22,46 @@
     font-size: 20px;
     font-weight: bold;
     }
+    .space {
+        margin-bottom: 10px;
+    }
+    .hyper {
+        color: black;
+        font-size: 18px;
+        font-style: italic;
+    }
+    .merchandareas {
+        padding-left: 10px;
+    }
+    .hyperlow {
+        color: black;
+        font-size: 16px;
+        font-weight: normal;
+    }
 </style>
 
 <body>
 <h1>Stage Calendars</h1>
 <div class="container">
     {% for s in stages %}
-        <div class="stage">
+        <div class="stage" id="{{s.stage_name}}">
         {{ s.stage_name }}
+        </div>
+        <div class = 'space'>
+            <a class="hyper" href="/merch/">Closest Merch Tents:</a>
+            {% for tent in merch %}
+            {% if tent.stage_id == s.stage_id %}
+            <div class="merchandareas"><a class = "hyperlow" href="/merch/#merchtent{{tent.tent_id}}">Merch Tent {{tent.tent_id}}</a></div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class = 'space'>
+            <a class="hyper" href="/food/">Closest Concession Areas:</a>
+            {% for area in con %}
+            {% if area.stage_id == s.stage_id %}
+            <div class="merchandareas"><a class = "hyperlow" href="/food/#area{{area.area_name}}">{{area.area_name}}</a></div>
+            {% endif %}
+            {% endfor %}
         </div>
             {% set id = s.stage_id-1 %}
             <div class="row day">
@@ -49,7 +82,7 @@
                 {% set aid = a.artist_id %}
                 <div class="row">
                     <div class="col-md-4">
-                        <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
+                        <a href=/artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-4">
                         {{ a.set_start_time.strftime('%H:%M') }}
@@ -76,7 +109,7 @@
             {% for a in saturday[id] %}
                 <div class="row">
                     <div class="col-md-4">
-                        <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
+                        <a href=/artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-4">
                         {{ a.set_start_time.strftime('%H:%M') }}

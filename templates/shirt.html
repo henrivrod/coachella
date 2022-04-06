@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<html>
+  <style>
+      
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+      background-image: linear-gradient(rgb(255, 122, 89), rgb(0, 189, 182));
+      min-height: 850px;
+    }
+    .merchspacing {
+        margin-bottom: 40px;
+    }
+
+  </style>
+
+
+<body>
+    <div class='container'>
+    <div class = 'merchspacing'></div>
+    <h1>SHIRTS</h1>
+    <a href="/merch/">Back to merch</a>
+    <div class='row'>
+        <div class='col-md-3'><b>Item Name</b></div>
+        <div class='col-md-3'><b>Item Type</b></div>
+        <div class='col-md-3'><b>Number Remaining</b></div>
+        <div class='col-md-3'><b>Price</b></div>
+    </div>
+    {% for item in shirt %}
+    <div class="row">
+        <div class="col-md-3">
+            {{item.item_name}}
+        </div>
+        <div class="col-md-3">
+            {{item.item_type}}
+        </div>
+        <div class="col-md-3">
+            {{item.number_remaining}}
+        </div>
+        <div class="col-md-3">
+            {{item.price}}
+        </div>
+    </div>
+    {% endfor %}
+    <div class = 'merchspacing'></div> 
+    </div>
+</body>
+
+
+</html>
+
+{% endblock %}
