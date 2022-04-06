@@ -85,10 +85,10 @@
                         <a href=/artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-4">
-                        {{ a.set_start_time.strftime('%I:%M %p') }}
+                        {{ a.set_start_time.strftime('%H:%M') }}
                     </div>
                     <div class="col-md-4">
-                        {{ a.set_end_time.strftime('%I:%M %p') }}
+                        {{ a.set_end_time.strftime('%H:%M') }}
                     </div>
                 </div>
             {% endfor %}
@@ -112,10 +112,10 @@
                         <a href=/artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-4">
-                        {{ a.set_start_time.strftime('%I:%M %p') }}
+                        {{ a.set_start_time.strftime('%H:%M') }}
                     </div>
                     <div class="col-md-4">
-                        {{ a.set_end_time.strftime('%I:%M %p') }}
+                        {{ a.set_end_time.strftime('%H:%M') }}
                     </div>
                 </div>
             {% endfor %}
@@ -136,13 +136,13 @@
             {% for a in sunday[id] %}
                 <div class="row">
                     <div class="col-md-4">
-                        <a href=artist/{{ a.artist_id }}>{{ a.artist_name }}</a>
+                        <a href="/artist/{{ a.artist_id }}">{{ a.artist_name }}</a>
                     </div>
                     <div class="col-md-4">
-                        {{ a.set_start_time.strftime('%I:%M %p')}}
+                        {{ a.set_start_time.strftime('%H:%M') }}
                     </div>
                     <div class="col-md-4">
-                        {{ a.set_end_time.strftime('%I:%M %p') }}
+                        {{ a.set_end_time.strftime('%H:%M') }}
                     </div>
                 </div>
             {% endfor %}
