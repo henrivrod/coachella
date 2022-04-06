@@ -262,7 +262,7 @@ def artist(id=0):
     artist.append(result)  # can also be accessed using result[0]
   cursor.close()
 
-  cursor = g.conn.execute("SELECT * FROM song where artist_id=%s", (id,))
+  cursor = g.conn.execute("SELECT * FROM song where artist_id=%s order by order_in_set", (id,))
   songs = []
   for result in cursor:
     songs.append(result)  # can also be accessed using result[0]
