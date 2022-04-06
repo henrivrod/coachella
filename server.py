@@ -218,7 +218,7 @@ def stages():
 @app.route('/merch/')
 def merch():
   print(request.args)
-  cursor = g.conn.execute("SELECT m.tent_id, m.number_of_workers, s.stage_name FROM merch_tent m, stage s where m.stage_id = s.stage_id")
+  cursor = g.conn.execute("SELECT m.tent_id, m.number_of_workers, s.stage_name FROM merch_tent m, stage s where m.stage_id = s.stage_id order by m.tent_id")
   tents = []
   for result in cursor:
     tents.append(result)  # can also be accessed using result[0]
@@ -506,7 +506,7 @@ def other():
 
   return render_template("other.html", **context)
 
-@app.route('/drink/')
+@app.route('/drinks/')
 def drink():
   # DEBUG: this is debugging code to see what request looks like
   print(request.args)
